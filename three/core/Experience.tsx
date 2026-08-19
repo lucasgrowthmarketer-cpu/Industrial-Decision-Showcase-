@@ -1,18 +1,25 @@
 "use client";
-// Scene minimale Phase 0/1 : environnement, lumieres, machine, camera a etats.
+// Scene Phase 1 : rendu ameliore (ACES + exposition + env renforce),
+// orbit disponible des l'etat WORLD, navigation scroll/swipe.
 import { Suspense, useRef } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, ContactShadows } from "@react-three/drei";
+import * as THREE from "three";
 import { CameraController } from "./CameraController";
 import { Machine, MachineHandle } from "./Machine";
 import { useStore } from "@/store/useStore";
+import { useScrollStateNav } from "@/hooks/useScrollStateNav";
 
 export default function Experience() {
   const machineRef = useRef<MachineHandle>(null);
   const isTransitioning = useStore((s) => s.isTransitioning);
   const machineMode = useStore((s) => s.machineMode);
-  // frameloop demand quand tout est au repos : gain batterie mobile (TDD section 14)
-  const frameloop = isTransitioning || machineMode !== "idle" ? "always" : "demand";
+  const currentState = useStore((s) => s.currentState);
+  useScrollStateNav();
+  // always pendant transitions, animations et exploration orbit ;
+  // demand sur les etats de lecture pure (batterie mobile, TDD section 14)
+  const exploring = currentState === "product" || currentState === "world";
+  const frameloop = isTransitioning || machineMode !== "idle" || exploring ? "always" : "demand";
 
   return (
     <Canvas
@@ -20,21 +27,23 @@ export default function Experience() {
       dpr={[1, 2]}
       camera={{ position: [0, 1.6, 12], fov: 40 }}
       shadows
-      gl={{ antialias: true }}
+      gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.15 }}
       style={{ position: "fixed", inset: 0 }}>
       <color attach="background" args={["#0a0f18"]} />
-      <fog attach="fog" args={["#0a0f18", 14, 30]} />
-      <ambientLight intensity={0.25} />
+      <fog attach="fog" args={["#0a0f18", 15, 34]} />
+      <ambientLight intensity={0.18} />
       <directionalLight
-        position={[5, 8, 6]} intensity={1.6} castShadow
-        shadow-mapSize={[2048, 2048]} shadow-bias={-0.0002} />
-      <directionalLight position={[-6, 4, -4]} intensity={0.5} color="#8ab4ff" />
+        position={[5, 8, 6]} intensity={2.0} castShadow
+        shadow-mapSize={[2048, 2048]} shadow-bias={-0.0002}
+        shadow-camera-left={-6} shadow-camera-right={6}
+        shadow-camera-top={6} shadow-camera-bottom={-2} />
+      <directionalLight position={[-6, 4, -4]} intensity={0.7} color="#8ab4ff" />
       <Suspense fallback={null}>
-        <Environment preset="warehouse" environmentIntensity={0.35} />
+        <Environment preset="warehouse" environmentIntensity={0.6} />
         <Machine ref={machineRef} />
-        <ContactShadows position={[0, 0.01, 0]} opacity={0.5} scale={14} blur={2.2} far={4} />
+        <ContactShadows position={[0, 0.01, 0]} opacity={0.55} scale={16} blur={2.4} far={4.5} />
       </Suspense>
-      <gridHelper args={[24, 48, "#1b2a45", "#12203a"]} position={[0, 0, 0]} />
+      <gridHelper args={[26, 52, "#1b2a45", "#12203a"]} position={[0, 0, 0]} />
       <CameraController />
     </Canvas>
   );

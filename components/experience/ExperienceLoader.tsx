@@ -1,8 +1,12 @@
 "use client";
-// Charge le Canvas apres detection des capacites (TDD sections 6 et 23).
+// Orchestration : detection capacites, masquage du contenu SEO des que
+// l'experience 3D est retenue, loading, intro, overlay debug.
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store/useStore";
+import { LoadingScreen } from "./LoadingScreen";
+import { IntroSequence } from "./IntroSequence";
+import { FpsOverlay } from "./FpsOverlay";
 
 const Experience = dynamic(() => import("@/three/core/Experience"), { ssr: false });
 
@@ -22,10 +26,20 @@ export function ExperienceLoader() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const webgl = detectWebGL2() && !reduced;
     setDevice({ webglAvailable: webgl, isMobile: window.matchMedia("(max-width: 768px)").matches });
+    // le contenu SEO reste dans le DOM (crawlers, lecteurs d'ecran) mais
+    // n'est plus peint : c'etait le texte brut visible au chargement
+    if (webgl) document.body.dataset.experience = "1";
     setReady(true);
   }, [setDevice]);
 
   if (!ready) return null;
   if (!webglAvailable) return null; // le contenu HTML Layer 0 reste la page
-  return <Experience />;
+  return (
+    <>
+      <Experience />
+      <LoadingScreen />
+      <IntroSequence />
+      <FpsOverlay />
+    </>
+  );
 }
