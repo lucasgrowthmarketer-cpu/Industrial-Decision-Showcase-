@@ -19,7 +19,7 @@ type CamState = {
   constraints?: { minDistance: number; maxDistance: number; minPolar: number; maxPolar: number };
 };
 
-const STATES = camConfig.states as Record<string, CamState>;
+const STATES = camConfig.states as unknown as Record<string, CamState>;
 
 export function CameraController() {
   const camera = useThree((s) => s.camera);
