@@ -1,0 +1,44 @@
+{
+  "id": "id-vmc-demo",
+  "name": "ID-VMC Demo Machining Center",
+  "manufacturer": "Industrial Decision",
+  "category": "Vertical Machining Center",
+  "model": { "url": "/models/cnc_vmc.glb", "scale": 1 },
+  "hotspots": [
+    { "id": "spindle", "anchorName": "anchor_spindle", "label": "SPINDLE",
+      "specs": [
+        { "key": "Speed", "value": "15 000", "unit": "RPM" },
+        { "key": "Power", "value": "22", "unit": "kW" },
+        { "key": "Taper", "value": "HSK-A63" }
+      ] },
+    { "id": "toolmagazine", "anchorName": "anchor_toolmagazine", "label": "TOOL MAGAZINE",
+      "specs": [
+        { "key": "Capacity", "value": "40", "unit": "tools" },
+        { "key": "Changer", "value": "Automatic" },
+        { "key": "Chip to chip", "value": "3.5", "unit": "s" }
+      ] },
+    { "id": "controlpanel", "anchorName": "anchor_controlpanel", "label": "CONTROL",
+      "specs": [
+        { "key": "CNC", "value": "ID-Control 5" },
+        { "key": "Display", "value": "15\" touch" },
+        { "key": "Axes", "value": "3+2" }
+      ] },
+    { "id": "table", "anchorName": "anchor_table", "label": "WORK TABLE",
+      "specs": [
+        { "key": "Size", "value": "1200 x 600", "unit": "mm" },
+        { "key": "Load", "value": "800", "unit": "kg" },
+        { "key": "Travel X", "value": "900", "unit": "mm" }
+      ] },
+    { "id": "electrical", "anchorName": "anchor_electrical", "label": "ELECTRICAL",
+      "specs": [
+        { "key": "Supply", "value": "400", "unit": "V" },
+        { "key": "Power", "value": "35", "unit": "kVA" },
+        { "key": "Safety", "value": "CE / ISO 13849" }
+      ] }
+  ],
+  "animations": [
+    { "id": "door_open", "label": "Open door" },
+    { "id": "cycle_demo", "label": "Run demo cycle" },
+    { "id": "spindle_run", "label": "Spindle test" }
+  ]
+}

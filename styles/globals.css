@@ -1,0 +1,34 @@
+/* Base minimale Phase 0. Typo definitive (Manrope, Inter, JetBrains Mono)
+   integree en Phase 2 via next/font. */
+:root {
+  --id-navy: #0b1d3a;
+  --id-accent: #207bff;
+  --id-bg: #0a0f18;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: var(--id-bg); color: #e8ecf2; font-family: system-ui, sans-serif; }
+
+/* Contenu SEO : present dans le DOM, visuellement derriere le Canvas.
+   Devient la page principale si le Canvas n'est pas monte (fallback). */
+.seo-layer { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem; }
+.seo-layer h1 { font-size: 2rem; letter-spacing: 0.06em; }
+.seo-layer h2 { margin-top: 2rem; font-size: 1.1rem; color: var(--id-accent); }
+.seo-layer p { margin-top: 0.5rem; line-height: 1.6; color: #b9c2d0; }
+
+.state-nav {
+  position: fixed; top: 1rem; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 0.4rem; z-index: 10;
+}
+.state-nav button {
+  border: 1px solid #1e305a;
+  padding: 0.45rem 0.8rem; font-size: 0.7rem; letter-spacing: 0.12em;
+  cursor: pointer; backdrop-filter: blur(8px);
+}
+.state-nav button.active { color: #fff; border-color: var(--id-accent); }
+
+.hotspot {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(11, 29, 58, 0.85); color: var(--id-accent);
+  border: 1px solid var(--id-accent); font-size: 1.1rem; cursor: pointer;
+}
+.hotspot-active { background: var(--id-accent); color: #fff; }
