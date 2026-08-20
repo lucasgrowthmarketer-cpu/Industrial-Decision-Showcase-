@@ -1,31 +1,43 @@
-# Patch Phase 3 · Application
+# Patch Phase 3.5 · Direction artistique
+## Verre depoli, features-02, NeonGlow, Typewriter
 
+## Prerequis : framer-motion (requis par NeonGlowButton et Typewriter)
 ```
 cd /workspaces/Industrial-Decision-Showcase-
-unzip -o phase3-patch.zip
+npm install framer-motion
+```
+
+## Application
+```
+unzip -o phase35-patch.zip
 npm run build
 ```
 Si vert :
 ```
-git add -A && git commit -m "Phase 3: monde ID, panneaux Data/Site/Acquisition, finale, full FR" && git push
+git add -A && git commit -m "Phase 3.5: DA verre, features-02, NeonGlow nav/controles, Typewriter" && git push
 ```
 
-## Contenu
-- Francisation complete : intro, nav, loading, controles, labels et specs machine.
-- Sol fini (dalle + grille) et 3 cadres 3D de panneaux repositionnes hors de
-  l'emprise machine (data a gauche, site a droite, acquisition a l'arriere).
-- DataPanel : 6 indicateurs calques sur les audits Industrial Decision,
-  mention Donnees de demonstration.
-- WebsitePanel : mini-site fictif ID Machine Tools (catalogue, fiches, devis).
-- AcquisitionPanel : funnel TRAFIC -> VENTES + leviers.
-- Scene finale : NOUS NE CONSTRUISONS PAS DES SITES WEB. / NOUS CONSTRUISONS
-  DES SYSTEMES DE DECISION. + CTA Demander une demo.
-- Analytics : cta_clicked, intro_skipped branches.
+## Ce qui change
+- PLAQUES 3D SUPPRIMEES → halos de lumiere au sol par station (StationHalos).
+- Panneaux Data / Site / Acquisition refondus sur le pattern features-02 des
+  references fournies : liste a gauche, apercu a droite, verre depoli sans
+  bordure, gros chiffres, transitions spring + blur.
+- Navigation → dock pilule flottant en NeonGlowButtons (presets #001FFF fournis).
+- Controles machine → NeonGlowButtons (LANCER LE CYCLE, VUE ECLATEE, etc.).
+- Loading → pourcentage geant Manrope 200 + ligne fine + Typewriter Originkit.
+- CTA finale → NeonGlowButtons lg.
+- Design system unifie : .glass, radius 26, plus aucune boite a bordure 1px.
+
+## Reglages rapides
+- Couleur du glow : prop glowColor (defaut #001FFF, vos presets).
+- Intensite du verre : --glass-bg et blur(26px) dans globals.css.
+- Halos : rayon/opacite dans three/showcase/StationHalos.tsx.
 
 ## Verification
-1. Enchainement complet intro -> ensemble -> produit -> data -> site ->
-   acquisition -> final, au scroll et au menu.
-2. Chaque panneau apparait apres la transition camera, cadre 3D visible derriere.
-3. Tout est en francais, y compris les cards de specs.
-4. CTA finale : mailto demarre, lien Industrial Decision s'ouvre.
-5. ?debug=1 Android : pas de regression.
+1. Nav dock : glow au survol et sur l'etat actif, rotation des anneaux.
+2. Loading : typewriter qui tape/efface, pourcentage qui monte.
+3. DATA / SITE / ACQUISITION : liste-apercu, clic sur chaque item, aucune
+   bordure dure nulle part.
+4. PRODUIT : boutons neon, disabled attenue pendant le cycle.
+5. Les 3 halos bleus au sol aux emplacements des stations.
+6. ?debug=1 Android : le blur du verre est le point a surveiller en FPS.

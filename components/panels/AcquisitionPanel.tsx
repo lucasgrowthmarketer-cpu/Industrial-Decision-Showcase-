@@ -1,27 +1,20 @@
 "use client";
-// Acquisition Experience (TDD section 16) : de la visibilite a l'opportunite.
-const STEPS = ["TRAFIC", "VISITEURS QUALIFIÉS", "LEADS", "OPPORTUNITÉS", "VENTES"];
-const LEVIERS = ["SEO", "Contenu", "Site web", "CRM", "Commerce"];
+import { FeaturePanel, BigStat } from "./FeaturePanel";
 
 export function AcquisitionPanel() {
   return (
-    <div className="panel-content">
-      <div className="panel-kicker">ACQUISITION</div>
-      <h2 className="panel-title">De la visibilité à l'opportunité</h2>
-      <div className="funnel">
-        {STEPS.map((s, i) => (
-          <div className="funnel-step" key={s} style={{ width: `${100 - i * 13}%` }}>
-            {s}
-          </div>
-        ))}
-      </div>
-      <div className="leviers">
-        {LEVIERS.map((l) => <span key={l} className="levier">{l}</span>)}
-      </div>
-      <p className="panel-caption">
-        Le site n'est pas séparé du business : chaque levier alimente le suivant,
-        chaque étape est mesurée.
-      </p>
-    </div>
+    <FeaturePanel
+      kicker="ACQUISITION"
+      title="De la visibilité à l'opportunité"
+      items={[
+        { id: "trafic", title: "Trafic", subtitle: "SEO · contenu",
+          content: <BigStat value="01" label="TRAFIC" note="Être trouvé par ceux qui cherchent déjà vos machines" /> },
+        { id: "leads", title: "Leads", subtitle: "Site · formulaires",
+          content: <BigStat value="02" label="VISITEURS → LEADS" note="Un site qui qualifie au lieu d'afficher" /> },
+        { id: "ventes", title: "Ventes", subtitle: "CRM · commerce",
+          content: <BigStat value="03" label="OPPORTUNITÉS → VENTES" note="Chaque étape mesurée, chaque levier relié au business" /> },
+      ]}
+      footer={<span className="demo-tag">SEO · Contenu · Site web · CRM · Commerce</span>}
+    />
   );
 }

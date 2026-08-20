@@ -1,6 +1,7 @@
 "use client";
-// Navigation d'etats, labels francais.
+// Dock flottant : NeonGlowButtons fournis par Industrial Decision, un par etat.
 import { useStore, SceneState } from "@/store/useStore";
+import { NeonGlowButton } from "@/components/ui/NeonGlowButton";
 
 const ITEMS: { id: SceneState; label: string }[] = [
   { id: "world", label: "ENSEMBLE" },
@@ -17,10 +18,8 @@ export function StateNav() {
   return (
     <nav className="state-nav" aria-label="Sections">
       {ITEMS.map((it) => (
-        <button key={it.id} onClick={() => setState(it.id)}
-          className={current === it.id ? "active" : ""} aria-current={current === it.id}>
-          {it.label}
-        </button>
+        <NeonGlowButton key={it.id} size="sm" label={it.label}
+          active={current === it.id} onClick={() => setState(it.id)} />
       ))}
     </nav>
   );

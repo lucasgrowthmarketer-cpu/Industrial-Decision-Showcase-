@@ -1,12 +1,12 @@
 "use client";
-// Scene Phase 3 : sol fini, cadres des panneaux, machine, camera a etats.
+// Scene Phase 3.5 : plaques supprimees, halos de station, sol fini.
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
 import { CameraController } from "./CameraController";
 import { Machine } from "./Machine";
-import { PanelFrames } from "@/three/showcase/PanelFrames";
+import { StationHalos } from "@/three/showcase/StationHalos";
 import { useStore } from "@/store/useStore";
 import { useScrollStateNav } from "@/hooks/useScrollStateNav";
 
@@ -40,10 +40,9 @@ export default function Experience() {
       <Suspense fallback={null}>
         <Environment preset="warehouse" environmentIntensity={0.6} />
         <Machine />
-        <PanelFrames />
+        <StationHalos />
         <ContactShadows position={[0, 0.01, 0]} opacity={0.55} scale={20} blur={2.4} far={4.5} />
       </Suspense>
-      {/* sol : dalle sombre + grille technique */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.005, 0]} receiveShadow>
         <circleGeometry args={[16, 64]} />
         <meshStandardMaterial color="#0c1220" metalness={0.15} roughness={0.85} />

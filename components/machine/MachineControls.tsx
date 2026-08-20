@@ -1,8 +1,8 @@
 "use client";
-// Controles machine, labels francais.
 import { useRef } from "react";
 import { useStore } from "@/store/useStore";
 import { cycleDemo, explodedView } from "@/three/core/AnimationPlayer";
+import { NeonGlowButton } from "@/components/ui/NeonGlowButton";
 import { track } from "@/lib/analytics";
 
 export function MachineControls() {
@@ -33,15 +33,11 @@ export function MachineControls() {
 
   return (
     <div className="machine-controls" role="toolbar" aria-label="Contrôles machine">
-      <button onClick={runCycle} disabled={machineMode !== "idle"}
-              className={machineMode === "running" ? "running" : ""}>
-        {machineMode === "running" ? "CYCLE EN COURS..." : "LANCER LE CYCLE"}
-      </button>
-      <button onClick={toggleExplode} disabled={machineMode === "running"}
-              className={machineMode === "exploded" ? "active" : ""}>
-        {machineMode === "exploded" ? "ASSEMBLER" : "VUE ÉCLATÉE"}
-      </button>
-      <button onClick={() => setState("world")}>VUE D'ENSEMBLE</button>
+      <NeonGlowButton label={machineMode === "running" ? "CYCLE EN COURS..." : "LANCER LE CYCLE"}
+        onClick={runCycle} disabled={machineMode !== "idle"} active={machineMode === "running"} />
+      <NeonGlowButton label={machineMode === "exploded" ? "ASSEMBLER" : "VUE ÉCLATÉE"}
+        onClick={toggleExplode} disabled={machineMode === "running"} active={machineMode === "exploded"} />
+      <NeonGlowButton label="VUE D'ENSEMBLE" onClick={() => setState("world")} />
     </div>
   );
 }

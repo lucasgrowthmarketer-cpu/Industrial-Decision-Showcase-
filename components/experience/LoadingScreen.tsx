@@ -1,27 +1,34 @@
 "use client";
-// Loading screen francais, progression reelle.
+// Loading : Typewriter Originkit + pourcentage en grand + ligne de progression.
 import { useProgress } from "@react-three/drei";
 import { useEffect, useState } from "react";
+import { Typewriter } from "@/components/ui/Typewriter";
 
 export function LoadingScreen() {
   const { progress, active } = useProgress();
   const [done, setDone] = useState(false);
   useEffect(() => {
     if (!active && progress >= 100) {
-      const t = setTimeout(() => setDone(true), 400);
+      const t = setTimeout(() => setDone(true), 500);
       return () => clearTimeout(t);
     }
   }, [active, progress]);
   if (done) return null;
-  const blocks = Math.round(progress / 5);
   return (
     <div className="loading-screen" role="status" aria-live="polite">
       <div className="loading-brand">INDUSTRIAL DECISION</div>
-      <div className="loading-label">INITIALISATION DE L'EXPÉRIENCE</div>
-      <div className="loading-bar" aria-hidden="true">
-        {"█".repeat(blocks)}{"░".repeat(20 - blocks)}
+      <div className="loading-pct">{Math.round(progress)}<span className="loading-pct-unit">%</span></div>
+      <div className="loading-line"><span style={{ width: `${progress}%` }} /></div>
+      <div className="loading-type">
+        <Typewriter
+          texts={[
+            "Initialisation de l'expérience",
+            "Chargement de l'environnement industriel",
+            "Préparation de la machine",
+          ]}
+          typeMs={42} holdMs={1100} deleteMs={20}
+          color="#5a6b85" typedColor="#8a99b3" cursorColor="#207bff" />
       </div>
-      <div className="loading-pct">{Math.round(progress)}%</div>
     </div>
   );
 }
