@@ -13,6 +13,7 @@ import { HotspotChips } from "@/components/machine/HotspotChips";
 import { MachineControls } from "@/components/machine/MachineControls";
 import { PanelOverlay } from "@/components/panels/PanelOverlay";
 import { Logo } from "@/components/ui/Logo";
+import { UserCursor } from "@/components/ui/UserCursor";
 import { track } from "@/lib/analytics";
 
 const Experience = dynamic(() => import("@/three/core/Experience"), { ssr: false });
@@ -81,6 +82,7 @@ export function ExperienceLoader() {
       <MachineControls />
       <PanelOverlay />
       <FpsOverlay />
+      <UserCursor />
     </>
   );
 }
