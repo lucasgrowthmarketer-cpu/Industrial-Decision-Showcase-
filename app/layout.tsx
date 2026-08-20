@@ -8,14 +8,20 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://experience.industrialdecision.com"),
   title: "Industrial Decision · Industrial Digital Experience",
   description:
-    "We don't build websites. We build decision systems. Experiences digitales 3D, data et acquisition pour PME et ETI industrielles.",
+    "Nous ne construisons pas des sites web. Nous construisons des systemes de decision. Experiences digitales 3D, data et acquisition pour PME et ETI industrielles.",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Industrial Decision · Industrial Digital Experience",
-    description: "Transformez votre site industriel en outil d'aide a la decision.",
+    url: "https://experience.industrialdecision.com",
+    siteName: "Industrial Decision",
+    title: "Industrial Digital Experience · Industrial Decision",
+    description: "Explorez une machine industrielle en 3D interactive : la demonstration vivante de ce que votre site pourrait etre.",
     type: "website",
+    locale: "fr_FR",
   },
+  robots: { index: true, follow: true },
 };
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
