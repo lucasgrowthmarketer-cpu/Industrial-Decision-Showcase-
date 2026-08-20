@@ -1,0 +1,6 @@
+{
+  "comment": "Reglages de feeling. scrollCooldown en ms : temps minimal entre deux transitions declenchees au scroll/swipe.",
+  "scrollCooldown": 1900,
+  "wheelThreshold": 30,
+  "swipeThreshold": 70
+}
