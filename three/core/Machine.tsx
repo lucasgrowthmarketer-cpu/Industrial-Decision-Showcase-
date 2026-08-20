@@ -88,7 +88,7 @@ export function Machine() {
   };
   const fromCanvas = (e: { nativeEvent?: Event }) =>
     (e.nativeEvent?.target as HTMLElement | undefined)?.nodeName === "CANVAS";
-  const onOver = (e: { object: THREE.Object3D; stopPropagation: () => void }) => {
+  const onOver = (e: { object: THREE.Object3D; stopPropagation: () => void; nativeEvent?: Event }) => {
     if (isMobile || currentState !== "product" || !fromCanvas(e)) return;
     e.stopPropagation();
     const grp = groupOf(e.object);
