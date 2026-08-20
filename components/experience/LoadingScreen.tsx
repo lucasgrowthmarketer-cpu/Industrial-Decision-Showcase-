@@ -2,7 +2,7 @@
 import { useProgress } from "@react-three/drei";
 import { useEffect, useState } from "react";
 import { Typewriter } from "@/components/ui/Typewriter";
-import { LogoID } from "@/components/ui/LogoID";
+import { Logo } from "@/components/ui/Logo";
 
 export function LoadingScreen() {
   const { progress, active } = useProgress();
@@ -16,7 +16,7 @@ export function LoadingScreen() {
   if (done) return null;
   return (
     <div className="loading-screen" role="status" aria-live="polite">
-      <LogoID size={44} className="loading-logo" />
+      <Logo size={44} className="loading-logo" />
       <div className="loading-brand">INDUSTRIAL DECISION</div>
       <div className="loading-pct">{Math.round(progress)}<span className="loading-pct-unit">%</span></div>
       <div className="loading-line"><span style={{ width: `${progress}%` }} /></div>
