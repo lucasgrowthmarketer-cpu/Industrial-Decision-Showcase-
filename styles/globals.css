@@ -76,3 +76,68 @@ body[data-experience="1"] .seo-layer {
   color: #7fd18b; font-family: monospace; font-size: 0.75rem;
   padding: 0.35rem 0.6rem; pointer-events: none;
 }
+
+/* ===== Phase 2 ===== */
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+h1, h2, .state-nav button, .intro-line, .loading-brand, .machine-controls button {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+}
+.loading-bar, .loading-pct, .fps-overlay, .hotspot-card-specs { 
+  font-family: var(--font-mono), monospace;
+}
+
+/* Card de specs hotspot */
+.hotspot-card {
+  position: fixed; right: 1.2rem; top: 50%; transform: translateY(-50%);
+  width: min(320px, calc(100vw - 2rem)); z-index: 15;
+  background: rgba(11, 29, 58, 0.88); border: 1px solid #1e305a;
+  backdrop-filter: blur(10px); padding: 1.1rem 1.2rem;
+}
+.hotspot-card-head { display: flex; justify-content: space-between; align-items: center; }
+.hotspot-card-label {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 0.8rem; letter-spacing: 0.28em; color: #fff;
+}
+.hotspot-card-close {
+  background: none; border: none; color: #7a8aa5; font-size: 1.3rem; cursor: pointer;
+  line-height: 1; padding: 0.2rem;
+}
+.hotspot-card-close:hover { color: #fff; }
+.hotspot-card-specs { margin-top: 0.9rem; display: grid; gap: 0.55rem; }
+.spec-row { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8rem; }
+.spec-row dt { color: #7a8aa5; }
+.spec-row dd { color: var(--id-accent); text-align: right; }
+.spec-unit { color: #7a8aa5; font-size: 0.7rem; }
+.hotspot-card-nav {
+  margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.7rem; color: #7a8aa5; font-family: var(--font-mono), monospace;
+}
+.hotspot-card-nav button {
+  background: none; border: 1px solid #2a3a5f; color: #b9c2d0;
+  width: 32px; height: 28px; cursor: pointer;
+}
+.hotspot-card-nav button:hover { border-color: var(--id-accent); color: #fff; }
+
+/* Controles machine */
+.machine-controls {
+  position: fixed; bottom: 1.4rem; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 0.5rem; z-index: 15;
+}
+.machine-controls button {
+  background: rgba(11, 29, 58, 0.85); color: #e8ecf2;
+  border: 1px solid #2a3a5f; padding: 0.65rem 1.2rem;
+  font-size: 0.68rem; letter-spacing: 0.2em; cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.machine-controls button:hover:not(:disabled) { border-color: var(--id-accent); }
+.machine-controls button.active { border-color: var(--id-accent); color: var(--id-accent); }
+.machine-controls button.running { color: var(--id-accent); }
+.machine-controls button:disabled { opacity: 0.45; cursor: default; }
+
+@media (max-width: 768px) {
+  .hotspot-card { right: 0.6rem; left: 0.6rem; top: auto; bottom: 5rem; transform: none; width: auto; }
+  .machine-controls { bottom: 0.8rem; width: calc(100vw - 1.2rem); justify-content: center; }
+  .machine-controls button { padding: 0.6rem 0.9rem; font-size: 0.62rem; }
+}
