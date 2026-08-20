@@ -29,7 +29,10 @@ export default function Experience() {
         camera={{ position: [0, 1.6, 12], fov: 40 }}
         shadows
         gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.15 }}
-        onPointerMissed={() => { if (activeHotspot) useStore.getState().setHotspot(null); }}
+        onPointerMissed={(e) => {
+          if ((e.target as HTMLElement | null)?.nodeName !== "CANVAS") return;
+          if (activeHotspot) useStore.getState().setHotspot(null);
+        }}
         style={{ position: "fixed", inset: 0 }}>
         <color attach="background" args={["#0a0f18"]} />
         <fog attach="fog" args={["#0a0f18", 16, 36]} />

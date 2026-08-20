@@ -86,8 +86,10 @@ export function Machine() {
       });
     });
   };
+  const fromCanvas = (e: { nativeEvent?: Event }) =>
+    (e.nativeEvent?.target as HTMLElement | undefined)?.nodeName === "CANVAS";
   const onOver = (e: { object: THREE.Object3D; stopPropagation: () => void }) => {
-    if (isMobile || currentState !== "product") return;
+    if (isMobile || currentState !== "product" || !fromCanvas(e)) return;
     e.stopPropagation();
     const grp = groupOf(e.object);
     if (grp === hovered.current) return;
@@ -101,8 +103,8 @@ export function Machine() {
     hovered.current = null;
     document.body.style.cursor = "default";
   };
-  const onClick = (e: { object: THREE.Object3D; stopPropagation: () => void }) => {
-    if (currentState !== "product") return;
+  const onClick = (e: { object: THREE.Object3D; stopPropagation: () => void; nativeEvent?: Event }) => {
+    if (currentState !== "product" || !fromCanvas(e)) return;
     const grp = groupOf(e.object);
     if (!grp) return;
     e.stopPropagation();
@@ -125,7 +127,8 @@ export function Machine() {
             <button
               className={"hotspot hotspot-stagger" + (activeHotspot === h.id ? " hotspot-active" : "")}
               style={{ animationDelay: `${i * 90}ms` }}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 const next = activeHotspot === h.id ? null : h.id;
                 setHotspot(next);
                 if (next) track("hotspot_clicked", { id: next });
