@@ -38,14 +38,14 @@ export function Machine() {
       const cloned = mat.clone();
       if (cloned.name.startsWith("mat_steel")) {
         const phys = new THREE.MeshPhysicalMaterial();
-        THREE.MeshPhysicalMaterial.prototype.copy.call(phys, cloned as THREE.MeshStandardMaterial);
+        THREE.MeshStandardMaterial.prototype.copy.call(phys, cloned as THREE.MeshStandardMaterial);
         phys.clearcoat = 0.5;
         phys.clearcoatRoughness = 0.25;
         return phys;
       }
       if (cloned.name === "mat_frame") {
         const phys = new THREE.MeshPhysicalMaterial();
-        THREE.MeshPhysicalMaterial.prototype.copy.call(phys, cloned as THREE.MeshStandardMaterial);
+        THREE.MeshStandardMaterial.prototype.copy.call(phys, cloned as THREE.MeshStandardMaterial);
         phys.clearcoat = 0.18;
         phys.clearcoatRoughness = 0.5;
         return phys;
