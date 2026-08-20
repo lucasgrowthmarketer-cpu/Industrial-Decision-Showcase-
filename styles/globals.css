@@ -346,3 +346,6 @@ html[data-experience="1"] .seo-layer {
 @media (max-width: 768px) {
   .pill-item { padding: 0.55rem 0.7rem; font-size: 0.58rem; }
 }
+
+/* Curseur Originkit : masque le curseur natif quand actif */
+html.has-custom-cursor, html.has-custom-cursor * { cursor: none !important; }
