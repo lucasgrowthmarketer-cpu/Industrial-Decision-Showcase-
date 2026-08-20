@@ -120,7 +120,6 @@ export function NeonGlowButton({
   useEffect(() => () => runningRef.current.forEach((c) => c.stop()), []);
 
   const scaleTo = (s: number) => { if (scope.current) animate(scope.current, { scale: s }, { duration: 0.12 }); };
-  const Tag = (href ? "a" : "button") as React.ElementType;
   const dim = disabled ? 0.4 : active ? 1 : 0.82;
 
   return (
@@ -141,24 +140,30 @@ export function NeonGlowButton({
           );
         })}
       </div>
-      <Tag
-        {...(href ? { href, target: newTab ? "_blank" : undefined, rel: newTab ? "noopener noreferrer" : undefined } : { type: "button" })}
-        onClick={onClick}
-        onPointerEnter={() => { hovered.current = true; syncRings(false); }}
-        onPointerLeave={() => { hovered.current = false; syncRings(false); scaleTo(1); }}
-        onPointerDown={() => scaleTo(0.97)}
-        onPointerUp={() => scaleTo(1)}
-        style={{
-          position: "relative", zIndex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center",
-          padding: S.padding, borderStyle: "solid", borderColor: glowColor, borderWidth: S.borderWidth,
-          outline: "none", borderRadius: radiusPx, backgroundColor: fill, cursor: disabled ? "default" : "pointer",
-          textDecoration: "none", whiteSpace: "nowrap", userSelect: "none", boxSizing: "border-box",
-          WebkitTapHighlightColor: "transparent",
-          fontFamily: "var(--font-manrope), sans-serif", fontWeight: 600,
-          fontSize: S.fontSize, letterSpacing: "0.18em", color: textColor,
-        }}>
-        {label}
-      </Tag>
+      {(() => {
+        const shared = {
+          onClick,
+          onPointerEnter: () => { hovered.current = true; syncRings(false); },
+          onPointerLeave: () => { hovered.current = false; syncRings(false); scaleTo(1); },
+          onPointerDown: () => scaleTo(0.97),
+          onPointerUp: () => scaleTo(1),
+          style: {
+            position: "relative", zIndex: 1, display: "inline-flex", alignItems: "center", justifyContent: "center",
+            padding: S.padding, borderStyle: "solid", borderColor: glowColor, borderWidth: S.borderWidth,
+            outline: "none", borderRadius: radiusPx, backgroundColor: fill, cursor: disabled ? "default" : "pointer",
+            textDecoration: "none", whiteSpace: "nowrap", userSelect: "none", boxSizing: "border-box",
+            WebkitTapHighlightColor: "transparent",
+            fontFamily: "var(--font-manrope), sans-serif", fontWeight: 600,
+            fontSize: S.fontSize, letterSpacing: "0.18em", color: textColor,
+          } as React.CSSProperties,
+        };
+        return href ? (
+          <a href={href} target={newTab ? "_blank" : undefined}
+             rel={newTab ? "noopener noreferrer" : undefined} {...shared}>{label}</a>
+        ) : (
+          <button type="button" {...shared}>{label}</button>
+        );
+      })()}
     </div>
   );
 }
