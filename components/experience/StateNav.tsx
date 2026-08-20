@@ -1,19 +1,25 @@
 "use client";
-// Navigation d'etats provisoire Phase 0/1 : les 3 entrees (menu ici, scroll et
-// boutons contextuels ensuite) pilotent la meme machine a etats.
+// Navigation d'etats, labels francais.
 import { useStore, SceneState } from "@/store/useStore";
 
-const ORDER: SceneState[] = ["world", "product", "data", "website", "acquisition", "final"];
+const ITEMS: { id: SceneState; label: string }[] = [
+  { id: "world", label: "ENSEMBLE" },
+  { id: "product", label: "PRODUIT" },
+  { id: "data", label: "DATA" },
+  { id: "website", label: "SITE" },
+  { id: "acquisition", label: "ACQUISITION" },
+  { id: "final", label: "FINAL" },
+];
 
 export function StateNav() {
   const current = useStore((s) => s.currentState);
   const setState = useStore((s) => s.setState);
   return (
     <nav className="state-nav" aria-label="Sections">
-      {ORDER.map((s) => (
-        <button key={s} onClick={() => setState(s)}
-          className={current === s ? "active" : ""} aria-current={current === s}>
-          {s.toUpperCase()}
+      {ITEMS.map((it) => (
+        <button key={it.id} onClick={() => setState(it.id)}
+          className={current === it.id ? "active" : ""} aria-current={current === it.id}>
+          {it.label}
         </button>
       ))}
     </nav>

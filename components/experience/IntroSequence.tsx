@@ -1,11 +1,11 @@
 "use client";
-// Sequence d'intro typographique (TDD section 8) : 3 ecrans, skippable des la
-// premiere seconde, puis transition vers WORLD.
+// Intro typographique francaise, skippable.
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useStore } from "@/store/useStore";
+import { track } from "@/lib/analytics";
 
-const LINES = ["INDUSTRY IS COMPLEX.", "DIGITAL SHOULDN'T BE.", "INDUSTRIAL DECISION"];
+const LINES = ["L'INDUSTRIE EST COMPLEXE.", "LE DIGITAL NE DEVRAIT PAS L'ÊTRE.", "INDUSTRIAL DECISION"];
 
 export function IntroSequence() {
   const currentState = useStore((s) => s.currentState);
@@ -29,7 +29,7 @@ export function IntroSequence() {
       {LINES.map((l) => (
         <div key={l} className={"intro-line" + (l === "INDUSTRIAL DECISION" ? " intro-brand" : "")}>{l}</div>
       ))}
-      <button className="intro-skip" onClick={skipIntro}>SKIP</button>
+      <button className="intro-skip" onClick={() => { track("intro_skipped"); skipIntro(); }}>PASSER</button>
     </div>
   );
 }

@@ -1,44 +1,44 @@
 {
   "id": "id-vmc-demo",
-  "name": "ID-VMC Demo Machining Center",
-  "manufacturer": "Industrial Decision",
-  "category": "Vertical Machining Center",
+  "name": "ID-VMC · Centre d'usinage vertical",
+  "manufacturer": "ID Machine Tools",
+  "category": "Centre d'usinage vertical",
   "model": { "url": "/models/cnc_vmc.glb", "scale": 1 },
   "hotspots": [
-    { "id": "spindle", "anchorName": "anchor_spindle", "label": "SPINDLE",
+    { "id": "spindle", "anchorName": "anchor_spindle", "label": "BROCHE",
       "specs": [
-        { "key": "Speed", "value": "15 000", "unit": "RPM" },
-        { "key": "Power", "value": "22", "unit": "kW" },
-        { "key": "Taper", "value": "HSK-A63" }
+        { "key": "Vitesse", "value": "15 000", "unit": "tr/min" },
+        { "key": "Puissance", "value": "22", "unit": "kW" },
+        { "key": "Attachement", "value": "HSK-A63" }
       ] },
-    { "id": "toolmagazine", "anchorName": "anchor_toolmagazine", "label": "TOOL MAGAZINE",
+    { "id": "toolmagazine", "anchorName": "anchor_toolmagazine", "label": "MAGASIN D'OUTILS",
       "specs": [
-        { "key": "Capacity", "value": "40", "unit": "tools" },
-        { "key": "Changer", "value": "Automatic" },
-        { "key": "Chip to chip", "value": "3.5", "unit": "s" }
+        { "key": "Capacité", "value": "40", "unit": "outils" },
+        { "key": "Changeur", "value": "Automatique" },
+        { "key": "Copeau à copeau", "value": "3,5", "unit": "s" }
       ] },
-    { "id": "controlpanel", "anchorName": "anchor_controlpanel", "label": "CONTROL",
+    { "id": "controlpanel", "anchorName": "anchor_controlpanel", "label": "PUPITRE CN",
       "specs": [
-        { "key": "CNC", "value": "ID-Control 5" },
-        { "key": "Display", "value": "15\" touch" },
+        { "key": "Commande", "value": "ID-Control 5" },
+        { "key": "Écran", "value": "15\" tactile" },
         { "key": "Axes", "value": "3+2" }
       ] },
-    { "id": "table", "anchorName": "anchor_table", "label": "WORK TABLE",
+    { "id": "table", "anchorName": "anchor_table", "label": "TABLE DE TRAVAIL",
       "specs": [
-        { "key": "Size", "value": "1200 x 600", "unit": "mm" },
-        { "key": "Load", "value": "800", "unit": "kg" },
-        { "key": "Travel X", "value": "900", "unit": "mm" }
+        { "key": "Dimensions", "value": "1200 x 600", "unit": "mm" },
+        { "key": "Charge", "value": "800", "unit": "kg" },
+        { "key": "Course X", "value": "900", "unit": "mm" }
       ] },
-    { "id": "electrical", "anchorName": "anchor_electrical", "label": "ELECTRICAL",
+    { "id": "electrical", "anchorName": "anchor_electrical", "label": "ARMOIRE ÉLECTRIQUE",
       "specs": [
-        { "key": "Supply", "value": "400", "unit": "V" },
-        { "key": "Power", "value": "35", "unit": "kVA" },
-        { "key": "Safety", "value": "CE / ISO 13849" }
+        { "key": "Alimentation", "value": "400", "unit": "V" },
+        { "key": "Puissance", "value": "35", "unit": "kVA" },
+        { "key": "Sécurité", "value": "CE / ISO 13849" }
       ] }
   ],
   "animations": [
-    { "id": "door_open", "label": "Open door" },
-    { "id": "cycle_demo", "label": "Run demo cycle" },
-    { "id": "spindle_run", "label": "Spindle test" }
+    { "id": "door_open", "label": "Ouvrir la porte" },
+    { "id": "cycle_demo", "label": "Cycle de démonstration" },
+    { "id": "spindle_run", "label": "Test broche" }
   ]
 }

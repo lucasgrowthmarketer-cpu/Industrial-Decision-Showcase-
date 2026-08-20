@@ -1,6 +1,5 @@
 "use client";
-// Orchestration : detection, masquage SEO, loading, intro, controles machine,
-// card hotspot, overlay debug, analytics d'etats.
+// Orchestration Phase 3 : + panneaux d'etats.
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useStore } from "@/store/useStore";
@@ -9,6 +8,7 @@ import { IntroSequence } from "./IntroSequence";
 import { FpsOverlay } from "./FpsOverlay";
 import { HotspotCard } from "@/components/machine/HotspotCard";
 import { MachineControls } from "@/components/machine/MachineControls";
+import { PanelOverlay } from "@/components/panels/PanelOverlay";
 import { track } from "@/lib/analytics";
 
 const Experience = dynamic(() => import("@/three/core/Experience"), { ssr: false });
@@ -35,7 +35,6 @@ export function ExperienceLoader() {
     }
   }, [setDevice]);
 
-  // analytics : entree dans chaque etat
   useEffect(() => {
     let prev = useStore.getState().currentState;
     const unsub = useStore.subscribe((s) => {
@@ -49,7 +48,7 @@ export function ExperienceLoader() {
   }, []);
 
   if (!ready) return null;
-  if (!webglAvailable) return null; // le contenu HTML Layer 0 reste la page
+  if (!webglAvailable) return null;
   return (
     <>
       <Experience />
@@ -57,6 +56,7 @@ export function ExperienceLoader() {
       <IntroSequence />
       <HotspotCard />
       <MachineControls />
+      <PanelOverlay />
       <FpsOverlay />
     </>
   );

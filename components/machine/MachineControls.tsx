@@ -1,5 +1,5 @@
 "use client";
-// Controles machine (etat PRODUCT) : RUN CYCLE, EXPLODE, OVERVIEW.
+// Controles machine, labels francais.
 import { useRef } from "react";
 import { useStore } from "@/store/useStore";
 import { cycleDemo, explodedView } from "@/three/core/AnimationPlayer";
@@ -32,16 +32,16 @@ export function MachineControls() {
   };
 
   return (
-    <div className="machine-controls" role="toolbar" aria-label="Machine controls">
+    <div className="machine-controls" role="toolbar" aria-label="Contrôles machine">
       <button onClick={runCycle} disabled={machineMode !== "idle"}
               className={machineMode === "running" ? "running" : ""}>
-        {machineMode === "running" ? "RUNNING..." : "RUN CYCLE"}
+        {machineMode === "running" ? "CYCLE EN COURS..." : "LANCER LE CYCLE"}
       </button>
       <button onClick={toggleExplode} disabled={machineMode === "running"}
               className={machineMode === "exploded" ? "active" : ""}>
-        {machineMode === "exploded" ? "ASSEMBLE" : "EXPLODE"}
+        {machineMode === "exploded" ? "ASSEMBLER" : "VUE ÉCLATÉE"}
       </button>
-      <button onClick={() => setState("world")}>OVERVIEW</button>
+      <button onClick={() => setState("world")}>VUE D'ENSEMBLE</button>
     </div>
   );
 }

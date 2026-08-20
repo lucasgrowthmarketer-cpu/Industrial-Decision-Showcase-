@@ -1,5 +1,5 @@
 "use client";
-// Loading screen premium (TDD section 24) : progression reelle via useProgress.
+// Loading screen francais, progression reelle.
 import { useProgress } from "@react-three/drei";
 import { useEffect, useState } from "react";
 
@@ -17,7 +17,7 @@ export function LoadingScreen() {
   return (
     <div className="loading-screen" role="status" aria-live="polite">
       <div className="loading-brand">INDUSTRIAL DECISION</div>
-      <div className="loading-label">INITIALIZING EXPERIENCE</div>
+      <div className="loading-label">INITIALISATION DE L'EXPÉRIENCE</div>
       <div className="loading-bar" aria-hidden="true">
         {"█".repeat(blocks)}{"░".repeat(20 - blocks)}
       </div>
