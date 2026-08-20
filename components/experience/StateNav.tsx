@@ -1,7 +1,8 @@
 "use client";
-// Dock flottant : NeonGlowButtons fournis par Industrial Decision, un par etat.
+// Menu segmente uniforme type hyperliquid : une seule pilule de verre,
+// l'indicateur actif glisse d'un item a l'autre (framer-motion layoutId).
+import { motion } from "framer-motion";
 import { useStore, SceneState } from "@/store/useStore";
-import { NeonGlowButton } from "@/components/ui/NeonGlowButton";
 
 const ITEMS: { id: SceneState; label: string }[] = [
   { id: "world", label: "ENSEMBLE" },
@@ -18,8 +19,15 @@ export function StateNav() {
   return (
     <nav className="state-nav" aria-label="Sections">
       {ITEMS.map((it) => (
-        <NeonGlowButton key={it.id} size="sm" label={it.label}
-          active={current === it.id} onClick={() => setState(it.id)} />
+        <button key={it.id}
+          className={"nav-item" + (current === it.id ? " nav-item-active" : "")}
+          onClick={() => setState(it.id)} aria-current={current === it.id}>
+          {current === it.id ? (
+            <motion.span layoutId="nav-pill" className="nav-pill"
+              transition={{ type: "spring", stiffness: 420, damping: 36 }} />
+          ) : null}
+          <span className="nav-label">{it.label}</span>
+        </button>
       ))}
     </nav>
   );

@@ -1,9 +1,10 @@
 "use client";
-// Scene Phase 4 : DPR par device, wrapper aria-hidden (contenu equivalent
-// dans le DOM), reste identique a la 3.5.
+// Scene Phase 4.1 : post-processing desktop (N8AO + bloom subtil), le plus
+// gros levier de realisme restant. Mobile : aucun post-processing.
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, ContactShadows } from "@react-three/drei";
+import { EffectComposer, N8AO, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { CameraController } from "./CameraController";
 import { Machine } from "./Machine";
@@ -48,6 +49,12 @@ export default function Experience() {
           <Machine />
           <StationHalos />
           <ContactShadows position={[0, 0.01, 0]} opacity={0.55} scale={20} blur={2.4} far={4.5} />
+          {!isMobile ? (
+            <EffectComposer multisampling={4}>
+              <N8AO aoRadius={0.5} intensity={2.4} distanceFalloff={0.8} quality="medium" />
+              <Bloom intensity={0.25} luminanceThreshold={0.85} luminanceSmoothing={0.3} mipmapBlur />
+            </EffectComposer>
+          ) : null}
         </Suspense>
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.005, 0]} receiveShadow>
           <circleGeometry args={[16, 64]} />

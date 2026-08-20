@@ -20,9 +20,23 @@ export const metadata: Metadata = {
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
+// Execute AVANT le premier paint : masque le contenu SEO si l'experience 3D
+// va se charger. C'est ce qui elimine le flash de texte brut au chargement.
+const PREPAINT = `
+try {
+  var c = document.createElement('canvas');
+  var gl = c.getContext('webgl2');
+  var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (gl && !rm) document.documentElement.setAttribute('data-experience', '1');
+} catch (e) {}
+`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={`${manrope.variable} ${inter.variable} ${jetbrains.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: PREPAINT }} />
+      </head>
       <body>
         {children}
         {GA_ID ? (

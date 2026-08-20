@@ -1,56 +1,42 @@
-# Patch Phase 4 · Polish + formulaire de contact
+# Patch 4.1 · Anti-flash, nav segmentee, realisme (N8AO + clearcoat)
 
 ## Prerequis
 ```
 cd /workspaces/Industrial-Decision-Showcase-
-npm install nodemailer
-npm install -D @types/nodemailer
+npm install @react-three/postprocessing postprocessing n8ao
 ```
-
-## Variables Railway a creer (service > Variables)
-- SMTP_USER = lucas@industrialdecision.com
-- SMTP_PASS = mot de passe d'application Google (16 caracteres)
-
-IMPORTANT, lecon HealthUnion (erreur 535) : le mot de passe d'application doit
-etre genere SUR le compte lucas@industrialdecision.com (myaccount.google.com >
-Securite > Validation en deux etapes > Mots de passe des applications), pas sur
-un autre compte, et lucas@ doit etre une vraie boite, pas un alias. Sans ces
-variables, le formulaire repond une erreur propre et le reste du site vit.
 
 ## Application
 ```
-unzip -o phase4-patch.zip
+unzip -o phase41-patch.zip
+cat styles/nav-segmented.css >> styles/globals.css && rm styles/nav-segmented.css
 npm run build
-git add -A && git commit -m "Phase 4: logo, formulaire SMTP, mobile chips, fallback, a11y, vitesses" && git push
+git add -A && git commit -m "4.1: pre-paint anti-flash, nav segmentee, N8AO + clearcoat" && git push
 ```
 
 ## Contenu
-- Logo ID : header (lien vers industrialdecision.com), loading, favicon
-  (app/icon.svg, convention Next).
-- Formulaire DEMANDER UNE DEMO : modal verre, honeypot, envoi via
-  /api/contact (nodemailer, Gmail SMTP 465), reply-to = email du prospect.
-- Mobile : hotspots en chips tactiles (44px) sous le Canvas, pastilles 3D
-  desktop uniquement, DPR plafonne 1.5, shadow map 1024.
-- Clic direct sur la machine : cliquer un composant = ouvrir son hotspot,
-  avec hover emissif bleu desktop.
-- Fallback stylise (logo + titre + video optionnelle + CTA) : servi sans
-  WebGL2 ; avec prefers-reduced-motion, propose avec bouton ACTIVER LA 3D.
-- Accessibilite : focus-visible partout, canvas aria-hidden, stagger
-  d'apparition des hotspots.
-- Vitesses : final 3.6s, acquisition 3.0s, cooldown scroll 1900ms, tout
-  centralise dans config/experience.json et camera-states.json.
-
-## Video fallback (votre partie, optionnelle mais recommandee)
-Enregistrement d'ecran desktop de l'URL de prod, ~30s, parcours :
-intro > ensemble (demi-orbite) > produit (1 hotspot + cycle) > data > final.
-Exporter en mp4 H.264, deposer dans public/fallback/demo.mp4 (+ poster.jpg,
-une capture). Sans fichier, le bloc video se masque tout seul.
+1. FLASH DU TEXTE : script inline dans <head>, execute avant le premier paint.
+   Le contenu SEO n'apparait plus jamais brut, meme une frame.
+2. NAV : menu segmente uniforme (une pilule de verre, indicateur actif qui
+   glisse entre les items, spring framer-motion). Les NeonGlowButtons restent
+   sur les controles machine et les CTA.
+3. REALISME :
+   - N8AO (occlusion ambiante ecran, desktop uniquement) : les jonctions,
+     recoins et contacts s'assombrissent physiquement. Le plus gros gain.
+   - Bloom subtil (seuil haut : seuls les reflets speculaires accrochent).
+   - Aciers en MeshPhysicalMaterial + clearcoat 0.5 : vernis machine,
+     double reflet caracteristique du metal peint industriel.
+   - Typewriter du loading ralenti (62ms/caractere).
 
 ## Verification
-1. Logo en haut a gauche, favicon dans l'onglet.
-2. FINAL > DEMANDER UNE DEMO > envoi reel : mail recu sur lucas@ avec
-   reply-to du prospect. Sans variables SMTP : message d'erreur propre.
-3. Mobile : chips sous le canvas en PRODUIT, tap = focus camera + card.
-4. Desktop : survol machine = surbrillance bleue, clic = hotspot.
-5. Systeme > reduire les animations : page fallback avec bouton ACTIVER LA 3D.
-6. Tab au clavier : focus visibles partout.
+1. Recharger en vidant le cache : plus aucun texte brut avant le loading.
+2. Nav : la pilule glisse d'un onglet a l'autre.
+3. PRODUIT desktop : recoins de la machine assombris (zone usinage, carrousel),
+   reflets vernis sur broche et table.
+4. ?debug=1 desktop : N8AO coute ~2-4ms/frame, verifier 60 FPS maintenu.
+   Mobile inchange (pas de post-processing).
+
+## Realisme, la suite honnete
+Le prochain palier (micro-rayures, textures brossees) exige un depliage UV +
+baking dans Blender sur votre machine. Script fourni sur demande si ce patch
+ne suffit pas a votre oeil.
