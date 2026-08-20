@@ -26,7 +26,7 @@ export default function Experience() {
     <div aria-hidden="true">
       <Canvas
         frameloop={frameloop}
-        dpr={[1, isMobile ? 1.5 : 2]}
+        dpr={[1, isMobile ? 1.5 : 1.75]}
         camera={{ position: [0, 1.6, 12], fov: 40 }}
         shadows
         gl={{ antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.15 }}
@@ -50,9 +50,9 @@ export default function Experience() {
           <StationHalos />
           <ContactShadows position={[0, 0.01, 0]} opacity={0.55} scale={20} blur={2.4} far={4.5} />
           {!isMobile ? (
-            <EffectComposer multisampling={4}>
-              <N8AO aoRadius={0.5} intensity={2.4} distanceFalloff={0.8} quality="medium" />
-              <Bloom intensity={0.25} luminanceThreshold={0.85} luminanceSmoothing={0.3} mipmapBlur />
+            <EffectComposer multisampling={0}>
+              <N8AO aoRadius={0.4} intensity={2.0} distanceFalloff={0.8} quality="performance" halfRes />
+              <Bloom intensity={0.22} luminanceThreshold={0.85} luminanceSmoothing={0.3} mipmapBlur />
             </EffectComposer>
           ) : null}
         </Suspense>
