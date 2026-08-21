@@ -117,21 +117,6 @@ export function Machine() {
 
   return (
     <primitive object={scene}
-      onPointerOver={(e: { object: THREE.Object3D; stopPropagation: () => void }) => {
-        if (!hoverEnabled) return;
-        e.stopPropagation();
-        const g = findGroupName(e.object);
-        if (g === hoverGroup.current) return;
-        setEmissive(hoverGroup.current, false);
-        hoverGroup.current = g;
-        setEmissive(g, true);
-        document.body.style.cursor = g && g !== "grp_body" ? "pointer" : "default";
-      }}
-      onPointerOut={() => {
-        setEmissive(hoverGroup.current, false);
-        hoverGroup.current = null;
-        document.body.style.cursor = "default";
-      }}
       onClick={(e: { object: THREE.Object3D; stopPropagation: () => void }) => {
         if (!hoverEnabled) return;
         e.stopPropagation();

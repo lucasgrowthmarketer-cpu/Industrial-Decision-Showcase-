@@ -4,7 +4,6 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, ContactShadows } from "@react-three/drei";
-import { EffectComposer, N8AO } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { CameraController } from "./CameraController";
 import { Machine } from "./Machine";
@@ -49,11 +48,6 @@ export default function Experience() {
           <Machine />
           <StationHalos />
           <ContactShadows position={[0, 0.01, 0]} opacity={0.55} scale={20} blur={2.4} far={4.5} />
-          {!isMobile ? (
-            <EffectComposer multisampling={0}>
-              <N8AO aoRadius={0.4} intensity={2.0} distanceFalloff={0.8} quality="performance" halfRes />
-            </EffectComposer>
-          ) : null}
         </Suspense>
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.005, 0]} receiveShadow>
           <circleGeometry args={[16, 64]} />
