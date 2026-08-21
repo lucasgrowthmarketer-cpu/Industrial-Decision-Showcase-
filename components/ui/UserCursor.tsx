@@ -30,6 +30,7 @@ export function UserCursor() {
   const labelTy = useTransform(labelY, (v) => v + SIZE * 0.2 + 6);
 
   const lastSample = useRef<{ x: number; y: number; t: number } | null>(null);
+  const visibleRef = useRef(false);
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
@@ -53,12 +54,14 @@ export function UserCursor() {
       lastSample.current = { x: e.clientX, y: e.clientY, t: now };
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      setHovering(true);
+      // setState UNE seule fois, pas a chaque frame de mouvement
+      if (!visibleRef.current) { visibleRef.current = true; setHovering(true); }
     };
     const onDown = () => animate(scale, PRESS_SCALE, { duration: 0.12 });
     const onUp = () => animate(scale, 1, { duration: 0.15 });
     const onLeaveDoc = (e: MouseEvent) => {
       if (!e.relatedTarget) {
+        visibleRef.current = false;
         setHovering(false);
         lastSample.current = null;
         tiltTarget.set(0);

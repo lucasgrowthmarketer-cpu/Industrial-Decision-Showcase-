@@ -4,7 +4,7 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Environment, ContactShadows } from "@react-three/drei";
-import { EffectComposer, N8AO, Bloom } from "@react-three/postprocessing";
+import { EffectComposer, N8AO } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { CameraController } from "./CameraController";
 import { Machine } from "./Machine";
@@ -52,7 +52,6 @@ export default function Experience() {
           {!isMobile ? (
             <EffectComposer multisampling={0}>
               <N8AO aoRadius={0.4} intensity={2.0} distanceFalloff={0.8} quality="performance" halfRes />
-              <Bloom intensity={0.22} luminanceThreshold={0.85} luminanceSmoothing={0.3} mipmapBlur />
             </EffectComposer>
           ) : null}
         </Suspense>
